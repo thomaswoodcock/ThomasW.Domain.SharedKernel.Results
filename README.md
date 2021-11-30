@@ -30,8 +30,8 @@ public async Task<Result> CreateUser(Guid userId, User user)
 ```
 
 In the above example, an argument is passed into the `Fail()` method that
-indicates the failure reason. This type **must** inherit the `FailureReason`
-abstract class.
+indicates the failure reason. This type **must** inherit from the
+`FailureReason` abstract class.
 
 For operations that _do_ return a value, such as application queries, you can
 create typed result objects using the `Fail<T>()` and `Success<T>()` methods:
