@@ -31,15 +31,14 @@ public sealed class PendingResult<T>
     ///     Creates a failed result from the pending result that would have contained a value had the operation been
     ///     successful.
     /// </summary>
-    /// <typeparam name="TReason">
-    ///     The type of the failure reason.
-    /// </typeparam>
+    /// <param name="reason">
+    ///     The reason that the operation failed.
+    /// </param>
     /// <returns>
     ///     A <see cref="Result{T}" /> indicating that an operation failed for a given reason and did not return a value.
     /// </returns>
-    public Result<T> Fail<TReason>()
-        where TReason : FailureReason, new()
+    public Result<T> Fail(FailureReason reason)
     {
-        return Result.Fail<T, TReason>();
+        return Result.Fail<T>(reason);
     }
 }

@@ -13,14 +13,14 @@ Creation of results is achieved by accessing the static methods on the `Result`
 class.
 
 For operations that do not return a value, such as application commands, you 
-can create basic result objects using the `Fail<T>()` and `Success()` methods:
+can create basic result objects using the `Fail()` and `Success()` methods:
 
 ```c#
 public async Task<Result> CreateUser(Guid userId, User user)
 {
     if (userId == default)
     {
-        return Result.Fail<InvalidEntityIdFailure>();
+        return Result.Fail(new InvalidEntityIdFailure());
     }
 
     await this._repository.AddUser(userId, user);
@@ -29,14 +29,12 @@ public async Task<Result> CreateUser(Guid userId, User user)
 }
 ```
 
-In the above example, a type is passed into the `Fail<T>()` method that
+In the above example, an argument is passed into the `Fail()` method that
 indicates the failure reason. This type **must** inherit the `FailureReason`
-abstract class and have a parameterless constructor.
+abstract class.
 
 For operations that _do_ return a value, such as application queries, you can
-create typed result objects using the `Fail<TValue, TReason>()` and
-`Success<T>()` methods:
-
+create typed result objects using the `Fail<T>()` and `Success<T>()` methods:
 
 ```c#
 public async Task<Result<User>> GetUser(Guid userId)
@@ -45,24 +43,24 @@ public async Task<Result<User>> GetUser(Guid userId)
 
     if (user == null)
     {
-        return Result.Fail<User, EntityNotFoundFailure>();
+        return Result.Fail<User>(new EntityNotFoundFailure());
     }
 
     return Result.Success(user);
 }
 ```
 
-In the preceding example, another type is passed into the
-`Fail<TValue, TReason>()` method to indicate the type of value that would have
-been returned had the operation been successful.
+In the preceding example, a type is passed into the `Fail<T>()` method to
+indicate the type of value that would have been returned had the operation been
+successful.
 
 As the value is passed directly into the `Success<T>()` method, its type can be
 inferred and thus does not have to be explicitly specified.
 
 For instances in which there may be multiple possible failure reasons,
-specifying the value type in each call to `Fail<TValue, TReason>()` will soon
-become laborious. To make this easier, you can create pending typed results
-with the `OfType<T>()` method and specify the failure reason when necessary:
+specifying the value type in each call to `Fail<T>()` will soon become
+laborious. To make this easier, you can create pending typed results with the
+`OfType<T>()` method and specify the failure reason when necessary:
 
 ```c#
 public async Task<Result<User>> GetUser(Guid userId)
@@ -71,14 +69,14 @@ public async Task<Result<User>> GetUser(Guid userId)
 
     if (userId == default)
     {
-        return result.Fail<InvalidEntityIdFailure>();
+        return result.Fail(new InvalidEntityIdFailure());
     }
 
     User? user = await this._repository.GetUser(userId);
 
     if (user == null)
     {
-        return result.Fail<EntityNotFoundFailure>();
+        return result.Fail(new EntityNotFoundFailure());
     }
 
     return result.Success(user);

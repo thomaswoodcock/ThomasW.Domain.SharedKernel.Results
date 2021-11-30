@@ -38,24 +38,30 @@ public sealed class ResultTests
         [Fact]
         public void Fail_NoValueType_ReturnsFailedResult()
         {
-            // Arrange Act
-            Result result = Result.Fail<TestFailureReason>();
+            // Arrange
+            TestFailureReason failureReason = new();
+
+            // Act
+            Result result = Result.Fail(failureReason);
 
             // Assert
             result.IsFailed.Should().BeTrue();
-            result.FailureReason.Should().BeOfType<TestFailureReason>();
+            result.FailureReason.Should().Be(failureReason);
             result.IsSuccessful.Should().BeFalse();
         }
 
         [Fact]
         public void Fail_ValueType_ReturnsFailedResult()
         {
-            // Arrange Act
-            Result<string> result = Result.Fail<string, TestFailureReason>();
+            // Arrange
+            TestFailureReason failureReason = new();
+
+            // Act
+            Result<string> result = Result.Fail<string>(failureReason);
 
             // Assert
             result.IsFailed.Should().BeTrue();
-            result.FailureReason.Should().BeOfType<TestFailureReason>();
+            result.FailureReason.Should().Be(failureReason);
             result.IsSuccessful.Should().BeFalse();
             result.Value.Should().BeNull();
         }

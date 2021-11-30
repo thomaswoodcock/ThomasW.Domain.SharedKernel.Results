@@ -74,35 +74,33 @@ public class Result
     /// <summary>
     ///     Creates a failed result.
     /// </summary>
-    /// <typeparam name="T">
-    ///     The type of the failure reason.
-    /// </typeparam>
+    /// <param name="reason">
+    ///     The reason that the operation failed.
+    /// </param>
     /// <returns>
     ///     A <see cref="Result" /> indicating that an operation failed for a given reason.
     /// </returns>
-    public static Result Fail<T>()
-        where T : FailureReason, new()
+    public static Result Fail(FailureReason reason)
     {
-        return new Result(new T());
+        return new Result(reason);
     }
 
     /// <summary>
     ///     Creates a failed result that would have contained a value had the operation been successful.
     /// </summary>
-    /// <typeparam name="TValue">
+    /// <param name="reason">
+    ///     The reason that the operation failed.
+    /// </param>
+    /// <typeparam name="T">
     ///     The type of the value.
-    /// </typeparam>
-    /// <typeparam name="TReason">
-    ///     The type of the failure reason.
     /// </typeparam>
     /// <returns>
     ///     A <see cref="Result{T}" /> indicating that an operation failed for a given reason and did not return a value.
     /// </returns>
-    public static Result<TValue> Fail<TValue, TReason>()
-        where TValue : notnull
-        where TReason : FailureReason, new()
+    public static Result<T> Fail<T>(FailureReason reason)
+        where T : notnull
     {
-        return new Result<TValue>(new TReason());
+        return new Result<T>(reason);
     }
 
     /// <summary>

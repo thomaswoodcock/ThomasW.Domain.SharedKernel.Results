@@ -31,13 +31,14 @@ public sealed class PendingResultTests
         {
             // Arrange
             PendingResult<string> pendingResult = Result.OfType<string>();
+            TestFailureReason failureReason = new();
 
             // Act
-            Result<string> result = pendingResult.Fail<TestFailureReason>();
+            Result<string> result = pendingResult.Fail(failureReason);
 
             // Assert
             result.IsFailed.Should().BeTrue();
-            result.FailureReason.Should().BeOfType<TestFailureReason>();
+            result.FailureReason.Should().Be(failureReason);
             result.IsSuccessful.Should().BeFalse();
             result.Value.Should().BeNull();
         }
