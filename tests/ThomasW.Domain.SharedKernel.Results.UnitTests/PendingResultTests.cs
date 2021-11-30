@@ -11,7 +11,7 @@ public sealed class PendingResultTests
         public void Success_Value_ReturnsSuccessfulResult()
         {
             // Arrange
-            PendingResult<string> pendingResult = Result.OfType<string>();
+            PendingResult<string> pendingResult = Result.Pending<string>();
 
             // Act
             Result<string> result = pendingResult.Success("Test Value");
@@ -30,7 +30,7 @@ public sealed class PendingResultTests
         public void Fail_ValueType_ReturnsFailedResult()
         {
             // Arrange
-            PendingResult<string> pendingResult = Result.OfType<string>();
+            PendingResult<string> pendingResult = Result.Pending<string>();
             TestFailureReason failureReason = new();
 
             // Act

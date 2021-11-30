@@ -71,13 +71,13 @@ public sealed class ResultTests
         }
     }
 
-    public sealed class OfType
+    public sealed class Pending
     {
         [Fact]
-        public void OfType_TypeValue_ReturnsPendingResult()
+        public void Pending_TypeValue_ReturnsPendingResult()
         {
             // Arrange Act
-            PendingResult<string> result = Result.OfType<string>();
+            PendingResult<string> result = Result.Pending<string>();
 
             // Assert
             result.Should().BeOfType<PendingResult<string>>();

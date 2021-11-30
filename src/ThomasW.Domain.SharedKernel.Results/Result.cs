@@ -112,7 +112,7 @@ public class Result
     /// <returns>
     ///     A <see cref="PendingResult{T}" /> indicating that the result of the operation is yet to be determined.
     /// </returns>
-    public static PendingResult<T> OfType<T>()
+    public static PendingResult<T> Pending<T>()
         where T : notnull
     {
         return new PendingResult<T>();

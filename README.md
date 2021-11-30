@@ -60,12 +60,12 @@ inferred and thus does not have to be explicitly specified.
 For instances in which there may be multiple possible failure reasons,
 specifying the value type in each call to `Fail<T>()` will soon become
 laborious. To make this easier, you can create pending typed results with the
-`OfType<T>()` method and specify the failure reason when necessary:
+`Pending<T>()` method and specify the failure reason when necessary:
 
 ```c#
 public async Task<Result<User>> GetUser(Guid userId)
 {
-    PendingResult<User> result = Result.OfType<User>();
+    PendingResult<User> result = Result.Pending<User>();
 
     if (userId == default)
     {
