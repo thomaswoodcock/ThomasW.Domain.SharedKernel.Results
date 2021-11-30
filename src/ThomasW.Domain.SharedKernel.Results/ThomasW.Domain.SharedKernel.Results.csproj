@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Framework -->
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <!-- Package -->
+  <PropertyGroup>
+    <Version>0.1.0</Version>
+    <Authors>ThomasWoodcock</Authors>
+    <Description>Indicate the success of domain or application operations</Description>
+    <Copyright>Copyright Thomas Woodcock</Copyright>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/thomaswoodcock/ThomasW.Domain.SharedKernel.Results</PackageProjectUrl>
+    <PackageTags>result;results;ddd;domain;</PackageTags>
+    <RepositoryUrl>https://github.com/thomaswoodcock/ThomasW.Domain.SharedKernel.Results.git</RepositoryUrl>
+  </PropertyGroup>
+
+  <!-- Publish -->
+  <PropertyGroup>
+    <EnablePackageValidation>true</EnablePackageValidation>
+  </PropertyGroup>
+
+  <!-- Compilation -->
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <!-- Code analysis -->
+  <PropertyGroup>
+    <AnalysisMode>All</AnalysisMode>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+
+  <!-- Generated files -->
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+</Project>
