@@ -20,12 +20,12 @@ public async Task<Result> CreateUser(Guid userId, User user)
 {
     if (userId == default)
     {
-        return result.Fail<InvalidEntityIdFailure>();
+        return Result.Fail<InvalidEntityIdFailure>();
     }
 
     await this._repository.AddUser(userId, user);
-    
-    return result.Success();
+
+    return Result.Success();
 }
 ```
 
@@ -42,12 +42,12 @@ create typed result objects using the `Fail<TValue, TReason>()` and
 public async Task<Result<User>> GetUser(Guid userId)
 {
     User? user = await this._repository.GetUser(userId);
-    
+
     if (user == null)
     {
         return Result.Fail<User, EntityNotFoundFailure>();
     }
-    
+
     return Result.Success(user);
 }
 ```
@@ -68,19 +68,19 @@ with the `OfType<T>()` method and specify the failure reason when necessary:
 public async Task<Result<User>> GetUser(Guid userId)
 {
     PendingResult<User> result = Result.OfType<User>();
-    
+
     if (userId == default)
     {
         return result.Fail<InvalidEntityIdFailure>();
     }
 
     User? user = await this._repository.GetUser(userId);
-    
+
     if (user == null)
     {
         return result.Fail<EntityNotFoundFailure>();
     }
-    
+
     return result.Success(user);
 }
 ```
@@ -92,18 +92,18 @@ and `IsFailed` properties, which will indicate whether the `Value` and
 ```c#
 public async IActionResult Get(Guid userId)
 {
-    Result<User> user = await this._userService.Get(userId);
-    
+    Result<User> result  = await this._userService.Get(userId);
+
     if (result.IsSuccessful)
     {
         return this.Ok(result.Value);
     }
-    
+
     if (result.FailureReason is EntityNotFoundFailure)
     {
         return this.NotFound();
     }
-    
+
     return this.BadRequest();
 }
 ```
@@ -119,8 +119,8 @@ property _is_ `null`:
 ```c#
 public async IActionResult Get(Guid userId)
 {
-    Result<User> user = await this._userService.Get(userId);
-    
+    Result<User> result = await this._userService.Get(userId);
+
     if (result.IsFailed)
     {
         return result.FailureReason switch
@@ -129,7 +129,7 @@ public async IActionResult Get(Guid userId)
             _ => this.BadRequest()
         };
     }
-    
+
     return this.Ok(result.Value);
 }
 ```
