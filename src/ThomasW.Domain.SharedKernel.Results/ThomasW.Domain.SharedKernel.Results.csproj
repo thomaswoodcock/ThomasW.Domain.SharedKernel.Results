@@ -12,6 +12,7 @@
     <Copyright>Copyright Thomas Woodcock</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/thomaswoodcock/ThomasW.Domain.SharedKernel.Results</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>result;results;ddd;domain;</PackageTags>
     <RepositoryUrl>https://github.com/thomaswoodcock/ThomasW.Domain.SharedKernel.Results.git</RepositoryUrl>
   </PropertyGroup>
