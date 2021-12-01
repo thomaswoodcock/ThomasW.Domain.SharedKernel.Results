@@ -90,7 +90,7 @@ and `IsFailed` properties, which will indicate whether the `Value` and
 ```c#
 public async IActionResult Get(Guid userId)
 {
-    Result<User> result  = await this._userService.Get(userId);
+    Result<User> result = await this._userService.Get(userId);
 
     if (result.IsSuccessful)
     {
