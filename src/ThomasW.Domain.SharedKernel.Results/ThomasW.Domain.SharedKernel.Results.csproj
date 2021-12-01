@@ -7,7 +7,6 @@
 
   <!-- Package -->
   <PropertyGroup>
-    <Version>0.1.0</Version>
     <Authors>ThomasWoodcock</Authors>
     <Description>Indicate the success of domain or application operations</Description>
     <Copyright>Copyright Thomas Woodcock</Copyright>
@@ -37,6 +36,16 @@
   <!-- Generated files -->
   <PropertyGroup>
     <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <!-- References -->
+  <ItemGroup>
+    <PackageReference Include="MinVer" Version="2.5.0" PrivateAssets="all" />
+  </ItemGroup>
+  
+  <!-- MinVer -->
+  <PropertyGroup>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
   </PropertyGroup>
 
 </Project>
