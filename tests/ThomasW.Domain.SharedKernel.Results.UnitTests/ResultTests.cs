@@ -1,5 +1,7 @@
 ﻿using FluentAssertions;
 
+using ThomasW.Domain.SharedKernel.Results.FluentAssertions;
+
 using Xunit;
 
 namespace ThomasW.Domain.SharedKernel.Results.UnitTests;
@@ -13,9 +15,7 @@ public sealed class ResultTests
         var result = Result.Success();
 
         // Assert
-        result.IsSuccessful.Should().BeTrue();
-        result.IsFailed.Should().BeFalse();
-        result.FailureReason.Should().BeNull();
+        result.Should().BeSuccessful();
     }
 
     [Fact]
@@ -25,41 +25,38 @@ public sealed class ResultTests
         var result = Result.Success("Test Value");
 
         // Assert
-        result.IsSuccessful.Should().BeTrue();
-        result.Value.Should().Be("Test Value");
-        result.IsFailed.Should().BeFalse();
-        result.FailureReason.Should().BeNull();
+        result.Should().BeSuccessful()
+            .And.BeSuccessful(value => value == "Test Value");
     }
 
     [Fact]
     public void Fail_NoValueType_ReturnsFailedResult()
     {
         // Arrange
-        TestFailureReason failureReason = new();
+        TestFailureReason failureReason = new("Test Message");
 
         // Act
         var result = Result.Fail(failureReason);
 
         // Assert
-        result.IsFailed.Should().BeTrue();
-        result.FailureReason.Should().Be(failureReason);
-        result.IsSuccessful.Should().BeFalse();
+        result.Should().BeFailed()
+            .And.BeFailed<TestFailureReason>()
+            .And.BeFailed<TestFailureReason>(reason => reason.Message == "Test Message");
     }
 
     [Fact]
     public void Fail_ValueType_ReturnsFailedResult()
     {
         // Arrange
-        TestFailureReason failureReason = new();
+        TestFailureReason failureReason = new("Test Message");
 
         // Act
         var result = Result.Fail<string>(failureReason);
 
         // Assert
-        result.IsFailed.Should().BeTrue();
-        result.FailureReason.Should().Be(failureReason);
-        result.IsSuccessful.Should().BeFalse();
-        result.Value.Should().BeNull();
+        result.Should().BeFailed()
+            .And.BeFailed<TestFailureReason>()
+            .And.BeFailed<TestFailureReason>(reason => reason.Message == "Test Message");
     }
 
     [Fact]
@@ -74,5 +71,11 @@ public sealed class ResultTests
 
     private sealed class TestFailureReason : FailureReason
     {
+        public TestFailureReason(string message)
+        {
+            this.Message = message;
+        }
+
+        public string Message { get; }
     }
 }
