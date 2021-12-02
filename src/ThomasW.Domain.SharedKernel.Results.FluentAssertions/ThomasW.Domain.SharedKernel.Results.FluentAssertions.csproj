@@ -43,6 +43,7 @@
     <ProjectReference Include="..\ThomasW.Domain.SharedKernel.Results\ThomasW.Domain.SharedKernel.Results.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MinVer" Version="2.5.0" PrivateAssets="all" />
     <PackageReference Include="FluentAssertions" Version="6.2.0" />
   </ItemGroup>
 
