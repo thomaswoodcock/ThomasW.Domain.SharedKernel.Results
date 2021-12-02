@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using ThomasW.Domain.SharedKernel.Results.FluentAssertions;
 
 using Xunit;
 
@@ -16,10 +16,7 @@ public class PendingResultTests
         Result<string> result = pendingResult.Success("Test Value");
 
         // Assert
-        result.IsSuccessful.Should().BeTrue();
-        result.Value.Should().Be("Test Value");
-        result.IsFailed.Should().BeFalse();
-        result.FailureReason.Should().BeNull();
+        result.Should().BeSuccessful(value => value == "Test Value");
     }
 
     [Fact]
@@ -33,10 +30,7 @@ public class PendingResultTests
         Result<string> result = pendingResult.Fail(failureReason);
 
         // Assert
-        result.IsFailed.Should().BeTrue();
-        result.FailureReason.Should().Be(failureReason);
-        result.IsSuccessful.Should().BeFalse();
-        result.Value.Should().BeNull();
+        result.Should().BeFailed<TestFailureReason>();
     }
 
     private sealed class TestFailureReason : FailureReason

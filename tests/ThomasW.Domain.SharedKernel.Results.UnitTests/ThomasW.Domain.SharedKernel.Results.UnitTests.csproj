@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\ThomasW.Domain.SharedKernel.Results.FluentAssertions\ThomasW.Domain.SharedKernel.Results.FluentAssertions.csproj" />
     <ProjectReference Include="..\..\src\ThomasW.Domain.SharedKernel.Results\ThomasW.Domain.SharedKernel.Results.csproj" />
   </ItemGroup>
 
