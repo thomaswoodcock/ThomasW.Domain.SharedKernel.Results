@@ -1,4 +1,4 @@
-﻿using ThomasW.Domain.SharedKernel.Results.FluentAssertions;
+﻿using FluentAssertions;
 
 using Xunit;
 
@@ -10,13 +10,18 @@ public class PendingResultTests
     public void Success_Value_ReturnsSuccessfulResult()
     {
         // Arrange
-        PendingResult<string> pendingResult = Result.Pending<string>();
+        object value = new();
+        PendingResult<object> pendingResult = Result.Pending<object>();
 
         // Act
-        Result<string> result = pendingResult.Success("Test Value");
+        Result<object> result = pendingResult.Success(value);
 
         // Assert
-        result.Should().BeSuccessful(value => value == "Test Value");
+        result.Should().BeAssignableTo<Result>();
+        result.IsSuccessful.Should().BeTrue();
+        result.Value.Should().BeSameAs(value);
+        result.IsFailed.Should().BeFalse();
+        result.FailureReason.Should().BeNull();
     }
 
     [Fact]
@@ -30,7 +35,11 @@ public class PendingResultTests
         Result<string> result = pendingResult.Fail(failureReason);
 
         // Assert
-        result.Should().BeFailed<TestFailureReason>();
+        result.Should().BeAssignableTo<Result>();
+        result.IsFailed.Should().BeTrue();
+        result.FailureReason.Should().BeSameAs(failureReason);
+        result.IsSuccessful.Should().BeFalse();
+        result.Value.Should().BeNull();
     }
 
     private sealed class TestFailureReason : FailureReason
